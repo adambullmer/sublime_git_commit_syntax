@@ -1,0 +1,87 @@
+// [PackageDev] target_format: plist, ext: tmLanguage
+{ "name": "Git: Commit-Message",
+  "scopeName": "text.git-commit-message",
+  "fileTypes": ["COMMIT_EDITMSG"],
+  "uuid": "6e83eb4a-b9de-42e5-a5fb-6371dac1c37e",
+
+  "patterns": [
+    {
+        "name": "comment.line.number-sign.git-commit-message",
+        "begin": "^#",
+        "beginCaptures": {
+            "0": { "name": "punctuation.definition.comment.git-commit-message" }
+        },
+        "end": "$",
+        "patterns": [
+            {
+                "name": "comment.line.on-branch.git-commit-message",
+                "match": "(?:On branch )([^ ]+)",
+                "captures": {
+                    "1": { "name": "support.function.branch.git-commit-message" }
+                }
+            },
+            {
+                "name": "comment.line.on-branch.git-commit-message",
+                "match": "Your branch .* '([^ ']+)'",
+                "captures": {
+                    "1": { "name": "support.function.branch.git-commit-message" }
+                }
+            },
+            {
+                "name": "comment.line.untracked.git-commit-message",
+                "begin": " Untracked files:",
+                "beginCaptures": {
+                    "0": { "name": "entity.definition.untracked.git-commit-message" }
+                },
+                "end": "^#$",
+                "patterns": [
+                    {
+                        "name": "comment.line.untracked-file.git-commit-message",
+                        "match": "\t(.*)$",
+                        "captures": {
+                            "1": { "name": "support.function.file-status.git-commit-message"},
+                            "2": { "name": "constant.character.branch.git-commit-message" }
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "comment.line.discarded.git-commit-message",
+                "begin": " Change(?:s not staged for commit|d but not updated):",
+                "beginCaptures": {
+                    "0": { "name": "entity.definition.discarded.git-commit-message" }
+                },
+                "end": "^#$",
+                "patterns": [
+                    {
+                        "name": "comment.line.discarded.git-commit-message",
+                        "match": "\t([^:]+):(.*)$",
+                        "captures": {
+                            "1": { "name": "support.function.file-status.git-commit-message"},
+                            "2": { "name": "constant.character.branch.git-commit-message" }
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "comment.line.selected.git-commit-message",
+                "begin": " Changes to be committed:",
+                "beginCaptures": {
+                    "0": { "name": "entity.definition.selected.git-commit-message" }
+                },
+                "end": "^#$",
+                "patterns": [
+                    {
+                        "name": "comment.line.selected.git-commit-message",
+                        "match": "\t([^:]+):(.*)$",
+                        "captures": {
+                            "1": { "name": "support.function.file-status.git-commit-message"},
+                            "2": { "name": "constant.character.branch.git-commit-message" }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+  ]
+}
