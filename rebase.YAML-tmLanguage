@@ -1,0 +1,95 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: GitRebase
+scopeName: text.git.rebase
+fileTypes: [git-rebase-todo]
+uuid: 99705a2d-c1fc-466e-bf17-20733909bf52
+
+patterns:
+- name: comment.line.number-sign.git-commit-message
+  begin: ^#
+  beginCaptures:
+    '0': {name: punctuation.definition.comment.git-commit-message}
+  end: $
+  patterns:
+  - name: comment.line.rebase.commands
+    match: (Commands:)$
+    captures:
+      '1': {name: entity.rebase.commands}
+  - name: comment.line.pick
+    match: '(p),\s+?(pick)\s+?=\s+?([^\n]*)$'
+    captures:
+      '1': {name: keyword.pick}
+      # '2': {name: keyword.pick}
+      '3': {name: string.pick}
+  - name: comment.line.reword
+    match: '(r),\s+?(reword)\s+?=\s+?([^\n]*)$'
+    captures:
+      '1': {name: keyword.reword}
+      # '2': {name: keyword.reword}
+      '3': {name: string.reword}
+  - name: comment.line.edit
+    match: '(e),\s+?(edit)\s+?=\s+?([^\n]*)$'
+    captures:
+      '1': {name: keyword.edit}
+      # '2': {name: keyword.edit}
+      '3': {name: string.edit}
+  - name: comment.line.squash
+    match: '(s),\s+?(squash)\s+?=\s+?([^\n]*)$'
+    captures:
+      '1': {name: keyword.squash}
+      # '2': {name: keyword.squash}
+      '3': {name: string.squash}
+  - name: comment.line.fixup
+    match: '(f),\s+?(fixup)\s+?=\s+?([^\n]*)$'
+    captures:
+      '1': {name: keyword.fixup}
+      # '2': {name: keyword.fixup}
+      '3': {name: string.fixup}
+  - name: comment.line.exec
+    match: '(x),\s+?(exec)\s+?=\s+?([^\n]*)$'
+    captures:
+      '1': {name: keyword.exec}
+      # '2': {name: keyword.exec}
+      '3': {name: string.exec}
+- name: invalid.illegal.rebase
+  match: ^(?!p|pick|r|reword|e|edit|s|squash|f|fixup|x|exec|\#|\s*?$)\s*?[^\n]*$
+- name: meta.paragraph.rebase
+  begin: ^(?=p|pick|r|reword|e|edit|s|squash|f|fixup|x|exec)
+  end: $
+  patterns:
+  - name: pick
+    match: '^(p|pick)\s+?(.{7})\s+?(.*)'
+    captures:
+      '1': {name: keyword.pick}
+      '2': {name: comment.pick}
+      '3': {name: string.pick}
+  - name: reword
+    match: '^(r|reword)\s+?(.{7})\s+?([^\n]*)'
+    captures:
+      '1': {name: keyword.reword}
+      '2': {name: comment.reword}
+      '3': {name: string.reword}
+  - name: edit
+    match: '^(e|edit)\s+?(.{7})\s+?([^\n]*)'
+    captures:
+      '1': {name: keyword.edit}
+      '2': {name: comment.edit}
+      '3': {name: string.edit}
+  - name: squash
+    match: '^(s|squash)\s+?(.{7})\s+?([^\n]*)'
+    captures:
+      '1': {name: keyword.squash}
+      '2': {name: comment.squash}
+      '3': {name: string.squash}
+  - name: fixup
+    match: '^(f|fixup)\s+?(.{7})\s+?([^\n]*)'
+    captures:
+      '1': {name: keyword.fixup}
+      '2': {name: comment.fixup}
+      '3': {name: string.fixup}
+  - name: exec
+    match: '^(x|exec)\s+?([^\n]*)'
+    captures:
+      '1': {name: keyword.exec}
+      '2': {name: support.function.exec}
