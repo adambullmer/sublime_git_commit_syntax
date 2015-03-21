@@ -6,175 +6,240 @@
 	<array>
 		<string>COMMIT_EDITMSG</string>
 	</array>
+	<key>foldingStartMarker</key>
+	<string>^\+\+\+</string>
+	<key>foldingStopMarker</key>
+	<string>^---|^$</string>
 	<key>name</key>
-	<string>Commit Message</string>
+	<string>Git Commit Message</string>
 	<key>patterns</key>
 	<array>
 		<dict>
-			<key>begin</key>
-			<string>^#</string>
-			<key>beginCaptures</key>
+			<key>captures</key>
 			<dict>
-				<key>0</key>
+				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.comment.git-commit-message</string>
+					<string>punctuation.definition.comment.git-commit</string>
 				</dict>
 			</dict>
-			<key>end</key>
-			<string>$</string>
+			<key>comment</key>
+			<string>Comments don't count when looking for the 'first line' of a commit.</string>
+			<key>match</key>
+			<string>^\s*(#).*$\n?</string>
 			<key>name</key>
-			<string>comment.line.number-sign.git-commit-message</string>
+			<string>comment.line.number-sign.git-commit</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#diff</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^((.{0,50}\s*)|(.{51,65}\s*)|(.+\s*))$</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>invalid.deprecated.line-too-long.git-commit</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>invalid.illegal.line-too-long.git-commit</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Capture the whole commit message to test the length of the first line. NB the end pattern is just something to be never matched so the capture continues until the end of the file.</string>
+			<key>end</key>
+			<string>(?=xxxxxx)123457</string>
+			<key>name</key>
+			<string>first-line.git-commit</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>support.function.branch.git-commit-message</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>(?:On branch )([^ ]+)</string>
-					<key>name</key>
-					<string>comment.line.on-branch.git-commit-message</string>
-				</dict>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>support.function.branch.git-commit-message</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>Your branch .* '([^ ']+)'</string>
-					<key>name</key>
-					<string>comment.line.on-branch.git-commit-message</string>
-				</dict>
-				<dict>
 					<key>begin</key>
-					<string> Untracked files:</string>
+					<string>^(()|(.*\s*))$</string>
 					<key>beginCaptures</key>
 					<dict>
-						<key>0</key>
+						<key>3</key>
 						<dict>
 							<key>name</key>
-							<string>entity.definition.untracked.git-commit-message</string>
+							<string>invalid.illegal.line-too-long.git-commit</string>
 						</dict>
 					</dict>
+					<key>comment</key>
+					<string>capture the second line</string>
 					<key>end</key>
-					<string>^#$</string>
-					<key>name</key>
-					<string>comment.line.untracked.git-commit-message</string>
+					<string>(?=xxxxxx)123458</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>invalid.illegal.line-too-long.git-commit</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>^(?:(?!#))((.{0,72})(.*))$\n?</string>
+							<key>name</key>
+							<string>commit-text.git-commit</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>constant.branch-name</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(^#)\sYour branch is up-to-date with '(.*)'.</string>
+							<key>name</key>
+							<string>comment.line.number-sign.git-commit</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>constant.branch-name</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(^#)\s(On branch\s)(.*)$\n?</string>
+							<key>name</key>
+							<string>comment.line.number-sign.git-commit</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>storage</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(^#)\s(.*:)$\n?</string>
+							<key>name</key>
+							<string>comment.line.number-sign.git-commit</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>markup.changed.git-commit</string>
+								</dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.comment.git-commit</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(^#)\s*(modified:.*)$\n?</string>
+							<key>name</key>
+							<string>comment.line.number-sign.git-commit</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>markup.inserted.git-commit</string>
+								</dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.comment.git-commit</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(^#)\s*(new file:.*)$\n?</string>
+							<key>name</key>
+							<string>comment.line.number-sign.git-commit</string>
+						</dict>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>markup.deleted.git-commit</string>
+								</dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.comment.git-commit</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>(^#)\s*(deleted:.*)$\n?</string>
+							<key>name</key>
+							<string>comment.line.number-sign.git-commit</string>
+						</dict>
 						<dict>
 							<key>captures</key>
 							<dict>
 								<key>1</key>
 								<dict>
 									<key>name</key>
-									<string>support.function.file-status.git-commit-message</string>
-								</dict>
-								<key>2</key>
-								<dict>
-									<key>name</key>
-									<string>constant.character.branch.git-commit-message</string>
+									<string>punctuation.definition.comment.git-commit</string>
 								</dict>
 							</dict>
 							<key>match</key>
-							<string>	(.*)$</string>
+							<string>^\s*(#).*$\n?</string>
 							<key>name</key>
-							<string>comment.line.untracked-file.git-commit-message</string>
+							<string>comment.line.number-sign.git-commit</string>
 						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string> Change(?:s not staged for commit|d but not updated):</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
 						<dict>
-							<key>name</key>
-							<string>entity.definition.discarded.git-commit-message</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>^#$</string>
-					<key>name</key>
-					<string>comment.line.discarded.git-commit-message</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>support.function.file-status.git-commit-message</string>
-								</dict>
-								<key>2</key>
-								<dict>
-									<key>name</key>
-									<string>constant.character.branch.git-commit-message</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>	([^:]+):(.*)$</string>
-							<key>name</key>
-							<string>comment.line.discarded.git-commit-message</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string> Changes to be committed:</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>entity.definition.selected.git-commit-message</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>^#$</string>
-					<key>name</key>
-					<string>comment.line.selected.git-commit-message</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>support.function.file-status.git-commit-message</string>
-								</dict>
-								<key>2</key>
-								<dict>
-									<key>name</key>
-									<string>constant.character.branch.git-commit-message</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>	([^:]+):(.*)$</string>
-							<key>name</key>
-							<string>comment.line.selected.git-commit-message</string>
+							<key>include</key>
+							<string>#diff</string>
 						</dict>
 					</array>
 				</dict>
 			</array>
 		</dict>
 	</array>
+	<key>repository</key>
+	<dict>
+		<key>diff</key>
+		<dict>
+			<key>begin</key>
+			<string>diff\ \-\-git</string>
+			<key>comment</key>
+			<string>diff presented at the end of the commit message when using commit -v. NB the end pattern is just something to be never matched so that the meta continues until the end of the file.</string>
+			<key>end</key>
+			<string>(?=xxxxxx)123457</string>
+			<key>name</key>
+			<string>meta.diff.git-commit</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.diff</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>scopeName</key>
-	<string>text.git-commit-message</string>
+	<string>text.git-commit</string>
 	<key>uuid</key>
-	<string>6e83eb4a-b9de-42e5-a5fb-6371dac1c37e</string>
+	<string>BFE83C06-8508-44BE-A975-95A57BF619A7</string>
 </dict>
 </plist>

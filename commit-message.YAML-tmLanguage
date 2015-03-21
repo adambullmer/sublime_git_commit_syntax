@@ -1,0 +1,86 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+name: Git Commit Message
+scopeName: text.git-commit
+fileTypes: [COMMIT_EDITMSG]
+uuid: BFE83C06-8508-44BE-A975-95A57BF619A7
+
+patterns:
+- comment: "Comments don't count when looking for the 'first line' of a commit."
+  name: comment.line.number-sign.git-commit
+  match: ^\s*(#).*$\n?
+  captures:
+    '1': {name: punctuation.definition.comment.git-commit}
+
+- include: '#diff'
+
+- comment: Capture the whole commit message to test the length of the first line.
+    NB the end pattern is just something to be never matched so the capture continues
+    until the end of the file.
+  name: "first-line.git-commit"
+  begin: ^((.{0,50}\s*)|(.{51,65}\s*)|(.+\s*))$
+  beginCaptures:
+    # '1':
+    #   patterns:
+    #   - name: keyword.other.$1.git-commit
+    #     match: \G(fixup|squash)!
+    '2': { name: 'entity' }
+    '3': { name: invalid.deprecated.line-too-long.git-commit }
+    '4': { name: invalid.illegal.line-too-long.git-commit }
+  end: (?=xxxxxx)123457
+  patterns:
+  - comment: capture the second line
+    begin: ^(()|(.*\s*))$
+    beginCaptures:
+      '3': { name: invalid.illegal.line-too-long.git-commit }
+    end: (?=xxxxxx)123458
+    patterns:
+    - name: commit-text.git-commit
+      match: ^(?:(?!#))((.{0,72})(.*))$\n?
+      captures:
+        '3': { name: invalid.illegal.line-too-long.git-commit }
+        # '4': { name: invalid.illegal.line-too-long.git-commit }
+    - name: comment.line.number-sign.git-commit
+      match: (^#)\sYour branch is up-to-date with '(.*)'.
+      captures:
+        '2': { name: constant.branch-name }
+    - name: comment.line.number-sign.git-commit
+      match: (^#)\s(On branch\s)(.*)$\n?
+      captures:
+        '3': { name: constant.branch-name }
+    - name: comment.line.number-sign.git-commit
+      match: (^#)\s(.*:)$\n?
+      captures:
+        '2': {name: punctuation.definition.comment.git-commit, name: storage}
+    - name: comment.line.number-sign.git-commit
+      match: (^#)\s*(modified:.*)$\n?
+      captures:
+        '0': {name: markup.changed.git-commit}
+        '1': {name: punctuation.definition.comment.git-commit}
+    - name: comment.line.number-sign.git-commit
+      match: (^#)\s*(new file:.*)$\n?
+      captures:
+        '0': {name: markup.inserted.git-commit}
+        '1': {name: punctuation.definition.comment.git-commit}
+    - name: comment.line.number-sign.git-commit
+      match: (^#)\s*(deleted:.*)$\n?
+      captures:
+        '0': {name: markup.deleted.git-commit}
+        '1': {name: punctuation.definition.comment.git-commit}
+    - name: comment.line.number-sign.git-commit
+      match: ^\s*(#).*$\n?
+      captures:
+        '1': {name: punctuation.definition.comment.git-commit}
+    - include: '#diff'
+
+repository:
+  diff:
+    comment: diff presented at the end of the commit message when using commit -v.
+      NB the end pattern is just something to be never matched so that the meta continues
+      until the end of the file.
+    name: meta.diff.git-commit
+    begin: diff\ \-\-git
+    end: (?=xxxxxx)123457
+    patterns:
+    - include: source.diff
+foldingStartMarker: ^\+\+\+
+foldingStopMarker: ^---|^$
