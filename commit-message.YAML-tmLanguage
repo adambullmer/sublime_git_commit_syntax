@@ -1,6 +1,6 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
 name: Git Commit Message
-scopeName: text.git-commit
+scopeName: text.git.commit-message
 fileTypes: [COMMIT_EDITMSG]
 uuid: BFE83C06-8508-44BE-A975-95A57BF619A7
 
