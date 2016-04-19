@@ -171,6 +171,10 @@
 				</dict>
 			</array>
 		</dict>
+		<dict>
+			<key>include</key>
+			<string>source.diff</string>
+		</dict>
 	</array>
 	<key>scopeName</key>
 	<string>text.git-commit-message</string>
